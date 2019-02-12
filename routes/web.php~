@@ -40,12 +40,19 @@ Route::post('newticket', function () {
 	/*
 		Route for the creation of a new ticket. Extension, ID and Name fields are passed to this route through POST
 	*/
-	echo "(Debug) Form data: ".request('Extension').", ".request('ID').", ".request('Name');
-	return view('incoming-new-call');
+	//echo "(Debug) Form data: ".request('Extension').", ".request('ID').", ".request('Name');
+	$data['issueID'] = 12	
+	$data['employeeID'] = "A1234";
+	$data['name'] = "Patrick";
+	$data['surname'] = "Star";
+	$data['department'] = "Department of memes";
+	$data['email'] = "p.star@makeitall.co.uk";
+	$data['extensionNumber'] = 456778;
+	return view('incoming-new-call', $data);
 });
 
 Route::post('submitticket', function () {
-	$form = request()->post();
-	return view();
+	return request()->post();
+	//return view('done');
 	
 });

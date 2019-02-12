@@ -1,27 +1,26 @@
 @extends('layouts.empty')
 
 @section('rightcard')
+		<p>Filename: incoming-new-call.blade.php</p>
 		<form method="post" action="submitticket">
 		{{ csrf_field() }}
-        <h1 style="text-align: left"><span id="issue_id" class="badge badge-secondary">Issue #7323</span> <span id="name" class="badge badge-secondary">Patrick Star</span></h1>
+        <h1 style="text-align: left"><span id="issue_id" class="badge badge-secondary">Issue #{{$issueID}}</span> <span id="name" class="badge badge-secondary">{{$name}} {{$surname}}</span></h1>
         <div class="row" style="padding-top: 2em; padding-bottom: 1em;">
               <div id="user_pane" class="col-4">
                     <ul class="list-group" style="text-align: left;">
                             <div id="user_info">                                             
-                                <li class="list-group-item border-0"><i class="fas fa-user" style="padding-right: 1em;"></i>A1234 Patrick Star</li>
-                                <li class="list-group-item border-0"><i class="fas fa-briefcase" style="padding-right: 1em;"></i>Accounting Dept, Room 12.3</li>
-                                <li class="list-group-item border-0"><i class="fas fa-envelope" style="padding-right: 1em;"></i>p.star@makeitall.co.uk</li>
-                                <li class="list-group-item border-0"><i class="fas fa-phone" style="padding-right: 1em;"></i>07413 012088</li>
+                                <li class="list-group-item border-0"><i class="fas fa-user" style="padding-right: 1em;"></i>{{$id}} {{$name}} {{$surname}}</li>
+                                <li class="list-group-item border-0"><i class="fas fa-briefcase" style="padding-right: 1em;"></i>{{$department}}</li>
+                                <li class="list-group-item border-0"><i class="fas fa-envelope" style="padding-right: 1em;"></i>{{$email}}</li>
+                                <li class="list-group-item border-0"><i class="fas fa-phone" style="padding-right: 1em;"></i>07413 {{$extensionNumber}}</li>
                             </div>
                             <div class="dropdown-divider"></div>
                             <div id="affected_items" style="text-align: left">
-                                  <button type="button" class="list-group-item m-1 border-0 btn btn-outline-dark" onclick="addaffected(this.value)" value="HP Pavilion 8300, Windows 7 Pro"><i class="fas fa-tablet-alt" style="padding-right: 1em;"></i>HP Pavilion 8300, Windows 7 Pro</li></button>
-                                  <button type="button" class="list-group-item m-1 border-0 btn btn-outline-dark" onclick="addaffected(this.value)" value="iPad Pro 12.9 2018, iOS 12.1"><i class="fas fa-tablet-alt" style="padding-right: 1em;"></i>iPad Pro 12.9 2018, iOS 12.1</li></button>
-                                  <button type="button" class="list-group-item m-1 border-0 btn btn-outline-dark" onclick="addaffected(this.value)" value="Office Suite"><i class="fas fa-box-open" style="padding-right: 1em;"></i>Office Suite</li></button>
-                                  <button type="button" class="list-group-item m-1 border-0 btn btn-outline-dark" onclick="addaffected(this.value)" value="Arduino IDE"><i class="fas fa-box-open" style="padding-right: 1em;"></i>Arduino IDE</li></button>
-                                  <button type="button" class="list-group-item m-1 border-0 btn btn-outline-dark" onclick="addaffected(this.value)" value="HP Deskjet 8300"><i class="fas fa-print" style="padding-right: 1em;"></i>HP Deskjet 8300</li></button>
+                            		<div id="textboxes">
+                                  <input type='text' class='m-1 form-control' name='affected[0]' placeholder='Affected hardware/software'>
+                                  </div>
                                   <button type="button" class="m-1 btn btn-outline-info" onclick="addother()"><i class="fas fa-plus" style="padding-right: 0.5em;"></i>Add other</button>
-                                  <input type="hidden" name="affected" id="affected" value="">
+                                  <!--<input type="hidden" name="affected" id="affected" value="">-->
                            </div>
                     </ul>
               </div>
@@ -35,18 +34,26 @@
                           </ol>
                     </nav>
                     <div class="list-group">
-                        <a href="#" class="list-group-item btn-outline-dark"><span id="priority" class="text-danger" style="padding-right: 0.5em">●</span>Won't Turn On</a>
-                        <a href="#" class="list-group-item btn-outline-dark"><span id="priority" class="text-warning" style="padding-right: 0.5em">●</span>Won't Log In</a>
-                        <a href="#" class="list-group-item btn-outline-dark"><span id="priority" class="text-warning" style="padding-right: 0.5em">●</span>No Network</a>
-                        <a href="#" class="list-group-item btn-outline-dark"><span id="priority" class="text-warning" style="padding-right: 0.5em">●</span>Driver Issue</a>
-                        <a href="#" class="list-group-item btn-outline-dark"><span id="priority" class="text-success" style="padding-right: 0.5em">●</span>Very Slow</a>
-                        <a href="#" class="list-group-item btn-outline-dark"><span id="priority" class="text-warning" style="padding-right: 0.5em">●</span>Individual Component</a>
+                        <!--<button class="list-group-item btn-outline-dark">Won't Turn On</button>
+                        <button class="list-group-item btn-outline-dark">Won't Log In</button>
+                        <button class="list-group-item btn-outline-dark">No Network</button>
+                        <button class="list-group-item btn-outline-dark">Driver Issue</button>
+                        <button class="list-group-item btn-outline-dark">Very Slow</button>
+                        <button class="list-group-item btn-outline-dark">Individual Component</button>-->
+                        <select style="display:inline-block; vertical-align:top; overflow:hidden;" size="6" name="issueDefinition">
+									<option class="list-group-item" value="Won't Log In">Won't Turn On</option>                        	
+                        	<option class="list-group-item" value="Won't Log In">Won't Log In</option>
+                        	<option class="list-group-item" value="No Network">No Network</option>
+                        	<option class="list-group-item" value="Driver Issue">Driver Issue</option>
+                        	<option class="list-group-item" value="No Network">Very Slow</option>
+                        	<option class="list-group-item" value="Driver Issue">Individual Component</option>
+                        </select>
                   </div>
-                  <input type="hidden" name="issue">
             </div>
               <div id="extra_pane" class="col-4" style="text-align: left; padding-left: 1.5em; padding-right: 1.5em">
-                    <div class="btn-block" style="padding-bottom: 1em">
-                          <button type="button" class="m-1 btn btn-outline-info" data-toggle="button" aria-pressed="false" autocomplete="off"><i class="fas fa-exclamation" style="padding-right: 0.5em;"></i>Add urgency</button>
+                    <div style="padding-bottom: 1em;">
+                    			Priority
+									<input type="range" class="" name="priority" min="1" max="3">
                     </div>
                     <textarea id="extra_notes" name="notes" style="background-color: #ffffcc; width: 100%; height: 20rem; resize: none;" class="form-control">Dear Patrick Star,</textarea>
               </div>
@@ -60,13 +67,13 @@
 @endsection
 
 @section('javascript')
-	function addother(){
-		alert("This function will add a text box under the automatically detected hardware/software to type in other hardware/software");	
-	}
 	
-	var affected = [];
-	function addaffected(x){
-		affected.push(x);
-		alert(affected);
+	let affectedCounter = 0;
+	//This function adds another textbox to enter affected hardware
+	function addother() {
+		let newdiv = document.createElement('div');
+		affectedCounter++;
+		newdiv.innerHTML += "<input type='text' class='m-1 form-control' name='affected[" + affectedCounter +"]' placeholder='Affected hardware/software'>";
+		document.getElementById("textboxes").appendChild(newdiv);
 	}
 @endsection
