@@ -2,7 +2,7 @@
 
 @section('rightcard')
 <h1> Identify user </h1>
-<form method="post" action="newticket">
+<form method="post" action="/api/employeesearch">
 	{{ csrf_field() }}
 	<div class="input-group mx-auto" style="width: 25em; margin-bottom: 1.5em; margin-top: 1em">
 	  <input type="text" name="Extension" class="form-control" style="width: 25%;  padding: 1em;" placeholder="Extension">
