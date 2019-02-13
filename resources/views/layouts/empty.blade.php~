@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="/public/css/additional.css">	
 	<script>
-		@yield('javascript')	
-		
 		function mycalls() {
 			document.getElementById('my_calls').style.display = "block";
 			document.getElementById('incoming_call').style.display = "none";
@@ -23,6 +22,7 @@
 			document.getElementById('incomingcallsbutton').className = "nav-link btn active";
 		}
 	</script>
+	<script>@yield('javascript')	</script>
  </head>
 
 <body style="background-color: #f8f8e8; font-size: 100%;">
@@ -68,7 +68,7 @@
                               <div class="rounded p-4" style="margin: 0em;">
                                     <h3> Call Reason </h3>
                                     <a type="button" class="btn  m-1 p-3  btn-primary" href="/newcallident">New Call</a>
-                                    <a type="button" class="btn  m-1 p-3  btn-primary">Recurring Call</a>
+                                    <a type="button" class="btn  m-1 p-3  btn-primary" href="/newcallident">Recurring Call</a>
                               </div>
                         </div>
                     </div>
