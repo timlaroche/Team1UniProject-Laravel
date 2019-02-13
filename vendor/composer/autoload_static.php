@@ -4016,6 +4016,7 @@ class ComposerStaticInitae690c8cb7acdb87d3f1539ce19170f3
         'Team1Helpdesk\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'Team1Helpdesk\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'Team1Helpdesk\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'Team1Helpdesk\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'Team1Helpdesk\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'Team1Helpdesk\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'Team1Helpdesk\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
