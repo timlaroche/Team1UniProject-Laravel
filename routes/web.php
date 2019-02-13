@@ -81,3 +81,4 @@ Route::post('submitupdate', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/logout', 'HomeController@logout');

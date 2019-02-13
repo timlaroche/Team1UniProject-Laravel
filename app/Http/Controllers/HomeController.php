@@ -3,6 +3,7 @@
 namespace Team1Helpdesk\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,10 @@ class HomeController extends Controller
     public function index()
     {
         return view('empty');
+    }
+
+    public function logout(Request $request) {
+      Auth::logout();
+      return redirect('/login');
     }
 }
