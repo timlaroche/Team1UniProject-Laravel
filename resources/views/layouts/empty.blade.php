@@ -29,7 +29,7 @@
               <div class="row" style="margin: 0">
                     <div id="sidepanel" class="col-3" style="text-align: center;">
                           <div id="user" style="padding-bottom: 1.5em;">
-                                <h2> Alice Banner <button type="button" class="btn"><i class="fas fa-cog"></i></button></h2>
+                                <h2> {{ Auth::user()->name }} <button type="button" class="btn"><i class="fas fa-cog"></i></button></h2>
                          </div>
                          <div id="call_type" style="padding-bottom: 1.5em;">
                                <ul class="nav nav-pills nav-fill">

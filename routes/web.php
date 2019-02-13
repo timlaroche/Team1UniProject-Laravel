@@ -56,3 +56,6 @@ Route::post('submitticket', function () {
 	//return view('done');
 	
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
