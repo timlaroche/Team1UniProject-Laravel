@@ -4,63 +4,73 @@
     <title>Make-It-All Helpdesk</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
  </head>
 
-<body>
-    <!-- Sidebar -->
-<div class="w3-sidebar w3-animate-left w3-bar-block w3-border-right" style="display:none" id="sidebar">
-  <button onclick="sidebar_close()" class="w3-bar-item w3-large">Close &times;</button>
-  <p class="w3-bar-item w3-xxlarge">Alice Peterson</p><br>
-  <a href="#" class="w3-bar-item w3-hover-green w3-xlarge w3-button">Start Break</a>
-  <a href="#" class="w3-bar-item w3-xlarge w3-hover-red w3-button">Log Off</a>
-</div>
-<button class="w3-button w3-round-xxlarge w3-white w3-margin-top w3-xlarge" style="border-radius: 0px 15px 15px 0px; "onclick="sidebar_open()">More</button>
+<body style="background-color: #f8f8e8; font-size: 120%;">
+      <div class="container-fluid" style="margin-top: 3em;">
+              <div class="row" style="margin: 0">
+                    <div class="col-3" style="text-align: center;">
+                          <div style="padding-bottom: 1.5em;">
+                                <h2> Alice Banner <button type="button" class="btn"><i class="fas fa-cog"></i></button></h2>
+                         </div>
+                         <div style="padding-bottom: 1.5em;">
+                               <ul class="nav nav-pills nav-fill">
+                                     <li class="nav-item">
+                                           <a class="nav-link" href="#"><i class="fas fa-phone-volume" style="padding-right: 0.5em;"></i>My Calls</a>
+                                     </li>
+                                     <li class="nav-item">
+                                           <a class="nav-link active" href="#"><i class="fas fa-plus" style="padding-right: 0.5em;"></i>Incoming Call</a>
+                                     </li>
+                                     <li class="nav-item">
+                                           <a class="nav-link" href="#"><i class="fas fa-bars" style="padding-right: 0.5em;"></i>All Calls</a>
+                                     </li>
+                              </ul>
+                        </div>
+                        <div style="overflow: auto; height: 35em;">
+                              <div class="rounded p-4" style="margin: 0em;">
+                                    <h3> Call Reason </h3>
+                                    <button type="button" class="btn  active m-1 p-3  btn-primary">New Call</button>
+                                    <button type="button" class="btn  m-1 p-3  btn-primary">Recurring Call</button>
+                              </div>
+                        </div>
+                    </div>
+                  <div class="col-9" style="text-align: center; margin-top: 2em;">
+                        <div class="rounded p-4" style="background-color: white; border: 0.6em solid lightgrey; border-radius: 9px">
+                              <h1 style="text-align: left"><span class="badge badge-secondary">Issue #7323</span><span class="badge badge-secondary">Software/Windows/Login</span> <span class="badge badge-secondary">Patrick Star</span> </h1>
+                              <div class="row" style="padding-top: 2em; padding-bottom: 1em;">
+                                    <div class="col-6">
+                                          <ul class="list-group" style="text-align: left;">
+                                                  <li class="list-group-item border-0"><i class="fas fa-user" style="padding-right: 1em;"></i>A1234 Patrick Star</li>
+                                                  <li class="list-group-item border-0"><i class="fas fa-envelope" style="padding-right: 1em;"></i>p.star@makeitall.co.uk</li>
+                                                  <li class="list-group-item border-0"><i class="fas fa-phone" style="padding-right: 1em;"></i>07413 012088</li>
+                                                  <br>
+                                                  <li class="list-group-item border-0"><i class="fas fa-clock" style="padding-right: 1em;"></i>4 days / Medium Urgency</li>
+                                                  <li class="list-group-item border-0"><i class="fas fa-quote-right" style="padding-right: 1em;"></i>User cannot log into their account</li>
 
-<!-- Page Content -->
-        <div class="w3-card w3-white w3-padding w3-row w3-round-xlarge" style="margin-left: 10%; margin-right: 10%; margin-top: 5%; ; margin-bottom: 5%">
-                <div class="w3-container w3-center w3-margin-bottom">
-                    <h1> Patrick Star <span class="w3-tag w3-deep-orange">Issue ID #8482</span> </h1>
-                </div>
-                <div class="w3-padding w3-half" style="text-align: center;">
-                    <h1> Review </h1>
-                    <ul class="w3-ul" style="text-align: left; overflow: auto; white-space: nowrap; max-height: 20rem;">
-                        <li>Topic: <br><b>Software/DesktopOS/Update Issue</b></li>
-                        <li>Affected on: <br><b>Firefox, Mac Pro 3,1</b></li>
-                        <li>Notes: <br><b>User cannot update to new version</b></li>
-                        <li>SLA: <br><b>4 days</b></li>
-                        <li>Rating:<br><b><span class="w3-tag w3-orange">Medium Urgency</span></b></li>
-                    </ul>
-                </div>
-                <div class="w3-padding w3-half" style="text-align: center;">
-                    <h1>Assignment </h1>
-                    <ul class="w3-ul" style="text-align: left; overflow: auto; white-space: nowrap; max-height: 20rem;">
-                        <li><a class="w3-button w3-border w3-margin-right w3-hover-blue w3-round-xxlarge" id="reason" onclick="changereason()">Assign</a> /Update Issue <b> Matthew Beimborn A4498 </b> <span class="w3-tag w3-red">1</span><span class="w3-tag w3-orange">3</span><span class="w3-tag w3-yellow">3</span> </li>
-                        <li><a class="w3-button w3-margin-right w3-border w3-hover-blue w3-round-xxlarge">Assign</a> /Update Issue <b>Ross Plaskow A4485 </b> <span class="w3-tag w3-red">2</span><span class="w3-tag w3-orange">1</span><span class="w3-tag w3-yellow">2</span></li>
-                        <li><a class="w3-button w3-border w3-margin-right w3-hover-blue w3-round-xxlarge">Assign</a> DesktopOS/ <b> Micheal Moore A4124 </b> <span class="w3-tag w3-red">2</span><span class="w3-tag w3-orange">3</span><span class="w3-tag w3-yellow">2</span></li>
-                        <li><a class="w3-button w3-border w3-margin-right w3-hover-blue w3-round-xxlarge">Assign</a> DesktopOS/ <b> George Bush A4959 </b> <span class="w3-tag w3-red">3</span><span class="w3-tag w3-orange">1</span><span class="w3-tag w3-yellow">4</span></li>
-                        <li><a class="w3-button w3-border w3-margin-right w3-hover-blue w3-round-xxlarge">Assign</a>DesktopOS/ <b> Steven Sear A4200 </b> <span class="w3-tag w3-red">4</span><span class="w3-tag w3-orange">0</span><span class="w3-tag w3-yellow">1</span></li>
-                    </ul>
-                </div>
-                <div class="w3-container w3-center w3-padding-top">
-                    <a href="new-call-main.html" class="w3-margin-top w3-button w3-border w3-hover-red w3-margin-bottom w3-padding-large w3-round-xxlarge"> < Back </a>
-                    <a href="new-call-done.html" class="w3-margin-top w3-button w3-large w3-border w3-hover-green w3-margin-bottom w3-padding-large w3-round-xxlarge"> Assign to Specialist</a>
-                    <br>
-                    <p> Review data before next stage </p>
-                </div>
-             </div>
-            <script>
-            function sidebar_open() {
-                document.getElementById("sidebar").style.display = "block";
-            }
-
-            function sidebar_close() {
-                document.getElementById("sidebar").style.display = "none";
-            }
-            function changereason() {
-                var x = document.getElementById("reason");
-                x.style.backgroundColor = "#85c5f9";
-            }
-            </script>
+                                          </ul>
+                                    </div>
+                                    <div class="col-6" style="text-align: left;">
+                                          <ul class="list-group">
+                                                  <li class="list-group-item border-0"><h4><span class="badge badge-info">Software/Windows/Login</span></h4>
+                                                        <button class="m-1 btn btn-outline-dark" type="submit">Mathew Beimborn A1821 <span class="badge badge-success">2</span> <span class="badge badge-warning">1</span> <span class="badge badge-danger">1</span></button><br>
+                                                        <button class="m-1 btn btn-outline-dark" type="submit">Patrick Erreand A4312 <span class="badge badge-success">4</span> <span class="badge badge-warning">1</span> <span class="badge badge-danger">2</span></button><br>
+                                                  </li>
+                                                  <li class="list-group-item border-0"><h4><span class="badge badge-info">Software/Windows</span></h4>
+                                                        <button class="m-1 btn btn-outline-dark" type="submit">Nigel Mansell A3121 <span class="badge badge-success">3</span> <span class="badge badge-warning">3</span> <span class="badge badge-danger">0</span></button><br>
+                                                        <button class="m-1 btn btn-outline-dark" type="submit">Steve Gates A1242 <span class="badge badge-success">3</span> <span class="badge badge-warning">1</span> <span class="badge badge-danger">2</span></button><br>
+                                                        <button class="m-1 btn btn-outline-dark" type="submit">Kishan Patel A3123 <span class="badge badge-success">0</span> <span class="badge badge-warning">0</span> <span class="badge badge-danger">3</span></button><br>
+                                                  </li
+                                          </ul>
+                                    </div>
+                              </div>
+                              <div class="btn-block" style="margin-top: 2em;">
+                                    <a style="color: white" href="done.html" class="btn btn-primary btn-lg">Continue<i class="fas fa-arrow-right" style="padding-left: 0.5em;"></i></a>
+                              </div>
+                       </div>
+                  </div>
+              </div>
+      </div>
 </body>
 </html>

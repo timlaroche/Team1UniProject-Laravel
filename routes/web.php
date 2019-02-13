@@ -21,6 +21,13 @@ Route::get('/', function(){
 	return view('index');
 });
 
+Route::post('login', function () {
+	/*
+		Route for logging in to the system. At this point this simply shows the default sidebar.
+	*/
+	return view('empty');
+});
+
 Route::get('main', function(){
 	return view('empty');
 });
@@ -29,11 +36,21 @@ Route::get('newcallident', function (){
 	return view('new-call-ident');
 });
 
-Route::post('login', function () {
-	/*
-		Route for logging in to the system. At this point this simply shows the default sidebar.
-	*/
-	return view('empty');
+Route::get('recurringcallident', function (){
+	return view('recurring-call-ident');
+});
+
+Route::post('recurringticket', function (){
+	//echo "(Debug) Form data: ".request('Extension').", ".request('employeeID').", ".request('Name').", ".request('issueID');
+	$data['issueID'] = 12;
+	$data['updateNumber'] = 2;
+	$data['employeeID'] = "A1234";
+	$data['name'] = "Patrick";
+	$data['surname'] = "Star";
+	$data['department'] = "Department of memes";
+	$data['email'] = "p.star@makeitall.co.uk";
+	$data['extensionNumber'] = 456778;	
+	return view('incoming-recurring-call', $data);
 });
 
 Route::post('newticket', function () {
@@ -54,6 +71,11 @@ Route::post('newticket', function () {
 Route::post('submitticket', function () {
 	return request()->post();
 	//return view('done');
+});
+
+Route::post('submitupdate', function () {
+	return request()->post();
+});
 	
 });
 Auth::routes();
