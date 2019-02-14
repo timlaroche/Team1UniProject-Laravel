@@ -16,11 +16,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-
-Route::get('/', function(){
-	return view('index');
-});
-
 Route::get('main', function(){
 	return view('empty');
 });
@@ -58,5 +53,5 @@ Route::post('submitticket', function () {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/logout', 'HomeController@logout');
