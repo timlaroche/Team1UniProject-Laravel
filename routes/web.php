@@ -68,16 +68,10 @@ Route::post('newticket', function () {
 	return view('incoming-new-call', $data);
 });
 
-Route::post('submitticket', function () {
-	return request()->post();
-	//return view('done');
-});
-
 Route::post('submitupdate', function () {
 	return request()->post();
 });
 	
-});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
