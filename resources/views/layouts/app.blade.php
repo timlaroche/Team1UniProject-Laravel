@@ -27,7 +27,10 @@
 
 
 <script>
-/*
+/* I TOOK THIS AWAY BECAUSE THE INTERFACE LOOKED A BIT WEIRD WITH IT, BUT IF
+ITS NEEEDED FOR ANYTHING TO DO WITH LOGIN FUNCTIONALITY FEEL FREE TO ADD IT BACK 
+- CARLOS
+
  <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
     <div class="container">
 
