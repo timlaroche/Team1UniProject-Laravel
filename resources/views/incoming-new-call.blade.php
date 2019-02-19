@@ -4,12 +4,12 @@
 		<p>Filename: incoming-new-call.blade.php</p>
 		<form method="post" action="submitticket">
 		{{ csrf_field() }}
-        <h1 style="text-align: left"><span id="issue_id" class="badge badge-secondary">Issue #{{$issueID}}</span> <span id="name" class="badge badge-secondary">{{$name}} {{$surname}}</span></h1>
+        <h1 style="text-align: left"><span id="issue_id" class="badge badge-secondary">Issue #{{$issueID}}</span> <span id="name" class="badge badge-secondary">{{$firstname}} {{$surname}}</span></h1>
         <div class="row" style="padding-top: 2em; padding-bottom: 1em;">
               <div id="user_pane" class="col-4">
                     <ul class="list-group" style="text-align: left;">
                             <div id="user_info">                                             
-                                <li class="list-group-item border-0"><i class="fas fa-user" style="padding-right: 1em;"></i>{{$employeeID}} {{$name}} {{$surname}}</li>
+                                <li class="list-group-item border-0"><i class="fas fa-user" style="padding-right: 1em;"></i>{{$employeeID}} {{$firstname}} {{$surname}}</li>
                                 <li class="list-group-item border-0"><i class="fas fa-briefcase" style="padding-right: 1em;"></i>{{$department}}</li>
                                 <li class="list-group-item border-0"><i class="fas fa-envelope" style="padding-right: 1em;"></i>{{$email}}</li>
                                 <li class="list-group-item border-0"><i class="fas fa-phone" style="padding-right: 1em;"></i>07413 {{$extensionNumber}}</li>
@@ -62,7 +62,7 @@
               <button type="submit" style="color: white" class="btn btn-primary btn-lg" name="selfsubmit"><i class="fas fa-user-tie" style="padding-right: 0.5em;"></i>Assign to self</button>
               <button type="submit" style="color: white" class="btn btn-primary btn-lg" name="specialistsubmit"><i class="fas fa-users" style="padding-right: 0.5em;"></i>Assign to specialist</button>
         </div>
-        
+        <input type="hidden" name="employeeID" value="{{$employeeID}}">
         </form>
 @endsection
 

@@ -2,7 +2,7 @@
 
 @section('rightcard')
 		<p>Filename: incoming-recurring-call.blade.php</p>
-		<form method="post" action="submitupdate">
+		<form method="post" action="api/submitupdate">
 		{{ csrf_field() }}
         <h1 style="text-align: left"><span id="issue_id" class="badge badge-secondary">Issue #{{$issueID}}.{{$updateNumber}}</span> <span id="name" class="badge badge-secondary">{{$name}} {{$surname}}</span></h1>
         <div class="row" style="padding-top: 2em; padding-bottom: 1em;">
