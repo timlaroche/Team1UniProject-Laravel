@@ -21,6 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->string('jobTitle');
             $table->string('department');
             $table->string('email');
+            $table->boolean('isSpecialist')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

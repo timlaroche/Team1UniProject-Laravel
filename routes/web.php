@@ -18,14 +18,7 @@ Route::get('/', function () {
 */
 
 Route::get('/', function(){
-	return view('index');
-});
-
-Route::post('login', function () {
-	/*
-		Route for logging in to the system. At this point this simply shows the default sidebar.
-	*/
-	return view('empty');
+	return view('auth.login');
 });
 
 Route::get('main', function(){
@@ -38,19 +31,6 @@ Route::get('newcallident', function (){
 
 Route::get('recurringcallident', function (){
 	return view('recurring-call-ident');
-});
-
-Route::post('recurringticket', function (){
-	//echo "(Debug) Form data: ".request('Extension').", ".request('employeeID').", ".request('Name').", ".request('issueID');
-	$data['issueID'] = 12;
-	$data['updateNumber'] = 2;
-	$data['employeeID'] = "A1234";
-	$data['name'] = "Patrick";
-	$data['surname'] = "Star";
-	$data['department'] = "Department of memes";
-	$data['email'] = "p.star@makeitall.co.uk";
-	$data['extensionNumber'] = 456778;	
-	return view('incoming-recurring-call', $data);
 });
 
 Route::post('newticket', function () {
@@ -77,7 +57,6 @@ Route::post('submitupdate', function () {
 	return request()->post();
 });
 	
-});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
