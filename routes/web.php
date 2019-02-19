@@ -77,7 +77,6 @@ Route::post('submitupdate', function () {
 	return request()->post();
 });
 	
-});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
