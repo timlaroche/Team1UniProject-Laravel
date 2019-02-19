@@ -18,14 +18,7 @@ Route::get('/', function () {
 */
 
 Route::get('/', function(){
-	return view('index');
-});
-
-Route::post('login', function () {
-	/*
-		Route for logging in to the system. At this point this simply shows the default sidebar.
-	*/
-	return view('empty');
+	return view('auth.login');
 });
 
 Route::get('main', function(){

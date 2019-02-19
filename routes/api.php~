@@ -17,31 +17,31 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('submitticket', function () {
-	return request()->post();
-	//
-	//return view('done');
+Route::post('/employeesearch', function(Request $request){
+    //echo json_encode((array)$results);
+    if(!empty($_POST["Extension"])){
+        $user = DB::table('employees')->where('extension', $_POST["Extension"])->first();
+    }
+    else if (!empty($_POST["ID"])){
+        $user = DB::table('employees')->where('id', $_POST["ID"])->first();
+    }
+    else if (!empty($_POST["Name"])){
+        $user = DB::table('employees')->where('name', $_POST["Name"])->first();
+    }
+
+    $data['employeeID'] = $user->id;
+    $data['firstname'] = $user->name;
+    $data['surname'] = $user->surname;
+    $data['department'] = $user->department;
+    $data['email'] = $user->email;
+    $data['extensionNumber'] = $user->extension;
+    return view('incoming-new-call', $data);
 });
 
-Route::post('/employeesearch', function(Request $request){
-	//echo json_encode((array)$results);
-	if(!empty($_POST["Extension"])){
-		$user = DB::table('employees')->where('extension', $_POST["Extension"])->first();
-	}
-	else if (!empty($_POST["ID"])){
-		$user = DB::table('employees')->where('id', $_POST["ID"])->first();
-	}
-	else if (!empty($_POST["Name"])){
-		$user = DB::table('employees')->where('name', $_POST["Name"])->first();
-	}
-	
-	$data['issueID'] = 12;
-	$data['employeeID'] = $user->id;
-	$data['firstname'] = $user->name;
-	$data['surname'] = $user->surname;
-	$data['department'] = $user->department;
-	$data['email'] = $user->email;
-	$data['extensionNumber'] = $user->extension;
-	//return $data;
-	return view('incoming-new-call', $data);
+Route::post('/recurringticket', 'TicketController@retrieveTicket');
+
+Route::post('/submitticket', 'TicketController@getTicketData');
+Route::post('/submitupdate', 'UpdateController@createUpdate');
+Route::post('/submitSpecialist', function(){
+	echo "Under construction. All I need to do is insert the chosen specialist into the tickets table with the right issueID";
 });

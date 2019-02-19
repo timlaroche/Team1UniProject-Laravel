@@ -1,0 +1,89 @@
+<?php
+
+namespace Team1Helpdesk\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use DateTime;
+
+class TicketController extends Controller
+{
+    private $issueDefinition;
+    private $priority;
+    private $notes;
+    private $employeeID;
+    private $id;
+    private $specialistID;
+    private $issueID;
+
+	//Retrieves ticket data from the POST request, then adds a new ticket and initial update, before returning the specialist select view
+    public function getTicketData(Request $request)
+    {
+        $this->issueDefinition = $request->input('issueDefinition');
+        $this->priority = $request->input('priority');
+        $this->notes = $request->input('notes');
+        $this->employeeID = $request->input('employeeID');
+        $this->specialistID = $request->input('specialistID');
+        
+        $tickets = DB::table('tickets');
+        $currentTime = date('Y-m-d H:i:s');
+		
+        $this->id = $tickets->insertGetID(
+            ['employeeID' => $this->employeeID, 'specialistID' => null,
+             'issueDefinition' => $this->issueDefinition, 'priority' => $this->priority,
+             'openTimestamp' => $currentTime, 'closeTimestamp' => null, 'specialistID' => $this->specialistID]
+        );
+		  $this->issueID = $tickets->where('openTimestamp', $currentTime)->first()->issueID;
+        
+        $updates = DB::table('updates');
+        $currentTime = date('Y-m-d H:i:s');
+
+        $updates->insert(['issueID' => $this->id, 'callerID' => $this->employeeID,
+        'updateID' => 0, 'notes' => $this->notes, 'callReason' => 'Open Ticket',
+        'openTimestamp' => $currentTime]);
+        
+        	$data['issueID'] = $this->issueID;
+        	$data['specialists'] = DB::table('employees')->select('id', 'name', 'surname')->where('isSpecialist', true)->get()->toArray();
+    		return view('new-call-specialist', $data);
+    }
+    
+    
+    public function retrieveTicket(Request $request)
+    {
+    		$issueID = $request->input('issueID');
+    		$tickets = DB::table('tickets');
+    		$updates = DB::table('updates');
+    		$employees = DB::table('employees');
+    		$prevUpdateID = $updates->where('issueID', $issueID)->max('updateID');
+        	$updateID = (string)($prevUpdateID + 1);
+        	$employeeID = $tickets->where('issueID', $issueID)->first()->employeeID;
+        	
+        	//Ticket information
+    		$data['employeeID'] = $employeeID;
+			$data['updateNumber'] = $updateID;    		
+    		$data['issueID'] = $issueID;
+    		
+    		//Information about initial caller
+    		$row = $employees->where('id', $employeeID)->first();
+    		$data['name'] = $row->name;
+    		$data['surname'] = $row->surname;
+    		$data['department'] = $row->department;
+    		$data['email'] = $row->email;
+    		$data['extensionNumber'] = $row->extension;
+    		
+    		$updateHistory = $updates->where('issueID', $issueID)->get();
+    		//For loop to populate array with update information
+    		foreach($updateHistory as $result) {
+    			$callerID = $result->callerID;
+    			$callerName = $employees->where('id', $callerID)->first()->name." ".$employees->where('id', $callerID)->first()->surname;
+    			$history[$result->updateID][0] = $result->issueID.".".$result->updateID;
+    			$history[$result->updateID][1] = $result->openTimestamp;
+    			$history[$result->updateID][2] = $callerID." - ".$callerName;
+				$history[$result->updateID][3] = $result->callReason;
+				$history[$result->updateID][4] = $result->notes;
+    		}
+    		$data['history'] = $history;
+    		
+    		return view('incoming-recurring-call', $data);
+    }
+}
