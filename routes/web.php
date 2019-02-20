@@ -17,20 +17,47 @@ Route::get('/', function () {
 });
 */
 
+function retrieveSideTickets()
+{
+	$id = Auth::user()['employeeID'];
+	if($id == ""){
+		return "";
+	}
+
+	$tickets = DB::table('tickets');
+
+	$ticketsForUser = $tickets->where('specialistID', $id)->where('closeTimestamp',null)->get()->toArray();
+	$index = 0;
+	if(sizeof($ticketsForUser)==0){
+		return "";
+	}
+	foreach($ticketsForUser as $ticket){
+		$data[$index][0] = $ticket->issueID;
+		$data[$index][1] = $ticket->issueDefinition;
+		$data[$index][2] = $ticket->priority;
+		$index++;
+	}
+
+	return $data;
+}
+
 Route::get('/', function(){
 	return view('auth.login');
 });
 
 Route::get('main', function(){
-	return view('empty');
+	$data['tickets'] = retrieveSideTickets();
+	return view('empty', $data);
 });
 
 Route::get('newcallident', function (){
-	return view('new-call-ident');
+	$data['tickets'] = retrieveSideTickets();
+	return view('new-call-ident', $data);
 });
 
 Route::get('recurringcallident', function (){
-	return view('recurring-call-ident');
+	$data['tickets'] = retrieveSideTickets();
+	return view('recurring-call-ident', $data);
 });
 
 Route::post('newticket', function () {
@@ -49,13 +76,14 @@ Route::post('newticket', function () {
 });
 
 Route::post('submitticket', function () {
-	return request()->post();
-	//return view('done');
+	$data['tickets'] = retrieveSideTickets();
+	return view('done', $data);
 });
 
-Route::post('submitupdate', function () {
+/*Route::post('submitupdate', function () {
+	$data['tickets'] = retrieveSideTickets();
 	return request()->post();
-});
+});*/
 	
 Auth::routes();
 

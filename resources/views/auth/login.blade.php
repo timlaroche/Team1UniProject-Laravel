@@ -65,9 +65,11 @@
                             </div>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
     </div>
+    <img src="img/logo.png" class="img-fluid" style="position: absolute; right:1em; bottom:1em;" alt="Logo">
 </div>
 @endsection

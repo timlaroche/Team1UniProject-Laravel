@@ -28,13 +28,14 @@ Route::post('/employeesearch', function(Request $request){
     else if (!empty($_POST["Name"])){
         $user = DB::table('employees')->where('name', $_POST["Name"])->first();
     }
-
+    $data['tickets'] = retrieveSideTickets();
     $data['employeeID'] = $user->id;
     $data['firstname'] = $user->name;
     $data['surname'] = $user->surname;
     $data['department'] = $user->department;
     $data['email'] = $user->email;
     $data['extensionNumber'] = $user->extension;
+    
     return view('incoming-new-call', $data);
 });
 

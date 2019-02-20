@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="background: #f8f8e8;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light">
             <div class="container">

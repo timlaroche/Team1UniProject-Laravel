@@ -20,59 +20,65 @@
 			document.getElementById('incoming_call').style.display = "block";
 			document.getElementById('mycallsbutton').className = "nav-link btn";
 			document.getElementById('incomingcallsbutton').className = "nav-link btn active";
-		}
+            }
+            
+            function onload(){
+                  let decodeElement = document.createElement("textarea");
+                  decodeElement.innerHTML = "{{json_encode($tickets)}}";
+                  let jsonarray = decodeElement.value;
+                  let tickets = JSON.parse(jsonarray);
+                  for(let i = 0; i<tickets.length; i++){
+                        let ticket = '<a href="" class="btn btn-block m-1 p-3 btn-danger"><span id="issue_id" class="badge badge-pill badge-secondary">#'+tickets[i][0]+'</span> <span id="description">'+tickets[i][1]+'</span></a>';
+                        document.getElementById("myTickets").innerHTML += ticket;
+                  }
+            }
 	</script>
 	<script>@yield('javascript')</script>
  </head>
 
-<body style="background-color: #f8f8e8; font-size: 100%;" onload="onload()">
+ <body style="background-color: #f8f8e8; font-size: 100%;" onload="onload();">
       <div class="container-fluid" style="margin-top: 3em;">
               <div class="row" style="margin: 0">
                     <div id="sidepanel" class="col-3" style="text-align: center;">
                           <div id="user" style="padding-bottom: 1.5em;">
-                          <h2> {{ Auth::user()['name'] }} <button type="button" class="btn"><i class="fas fa-cog"></i></button></h2>
                          </div>
                          <div id="call_type" style="padding-bottom: 1.5em;">
                                <ul class="nav nav-pills nav-fill">
                                      <li class="nav-item">
-                                           <button id="mycallsbutton" class="nav-link btn active" onclick="mycalls()"><i class="fas fa-phone-volume" style="padding-right: 0.5em;"></i>My Calls</button>
+                                           <a class="nav-link active" id="mycallsbutton" href="#" onclick="mycalls()"><i class="fas fa-bars" style="padding-right: 0.5em;"></i>My Calls</a>
                                      </li>
                                      <li class="nav-item">
-                                           <button id="incomingcallsbutton" class="nav-link btn" onclick="incomingcalls()"><i class="fas fa-plus" style="padding-right: 0.5em;"></i>Incoming Call</button>
+                                           <a class="nav-link" href="#" id="incomingcallsbutton" onclick="incomingcalls()"><i class="fas fa-phone" style="padding-right: 0.5em;"></i>Incoming Call</a>
                                      </li>
                               </ul>
                         </div>
-                        <div id="my_calls" style="overflow: auto; height: 35em;">
-                              <div class="rounded p-4" style="margin: 0em;">
+                        <div id="my_calls">
+                              <!--<div class="rounded p-4" style="margin: 0em;">
                                     <h3> Requests </h3>
-                                    <a href="" class="btn m-1 p-3 btn-info">Closure Request</a>
-                                    <a href="" class="btn m-1 p-3 btn-info">Closure Request</a>
-                              </div>
+                                    <a href="" class="btn btn-block m-1 p-3 btn-info"><span id="issue_id" class="badge badge-pill badge-secondary">#1993</span> <span id="description">Closure Request</span></a>
+                              </div>-->
                                 <div class="rounded p-4 m-2" style="margin: 0em;">
                                       <h3> Calls </h3>
-                                      <a href="" class="btn m-1 p-3 btn-danger">Login Issue</span></a>
-                                      <a href="" class="btn m-1 p-3 btn-warning">No WiFi</a>
-                                      <a href="" class="btn m-1 p-3 btn-success">Broken USB</a>
-                                      <a href="" class="btn m-1 p-3 btn-success">Projector Bulb</a>
-                                </div>
-                                <div class="rounded p-4" style="margin: 0em;">
-                                      <h3> Awaiting Response </h3>
-                                      <a href="" class="btn m-1 p-3 btn-warning">Update Issue</a>
-                                     <a href="" class="btn m-1 p-3 btn-success">Printer Ink</a>
+                                      <div id="myTickets">
+
+                                      </div>
                                 </div>
                         </div>
-								 <div id="incoming_call" style="overflow: auto; height: 35em;">
+                        <div id="incoming_call" style="overflow: auto; height: 35em; display: none;">
                               <div class="rounded p-4" style="margin: 0em;">
                                     <h3> Call Reason </h3>
                                     <a type="button" class="btn  m-1 p-3  btn-primary" href="/newcallident">New Call</a>
                                     <a type="button" class="btn  m-1 p-3  btn-primary" href="/recurringcallident">Recurring Call</a>
                               </div>
                         </div>
+                        <a type="button" class="btn" href="/logout" style="margin-bottom: 2em; margin-top: 2em;"><i class="fas fa-sign-out-alt"></i></a>
                     </div>
                   <div class="col-9" style="text-align: center; margin-top: 2em;">
-                  	<div class="rounded p-4 sticky-top" style="background-color: white; border: 0.6em solid lightgrey; border-radius: 9px">
+                        <div class="rounded p-4 sticky-top" style="background-color: white; border: 0.6em solid lightgrey; border-radius: 9px">
                            @yield('rightcard')         
                   	</div>
+                    <div class="sticky-top">
+                    </div>
                   </div>
                   </div>
               </div>

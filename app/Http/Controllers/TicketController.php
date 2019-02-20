@@ -5,6 +5,7 @@ namespace Team1Helpdesk\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DateTime;
+use Auth;
 
 class TicketController extends Controller
 {
@@ -15,6 +16,7 @@ class TicketController extends Controller
     private $id;
     private $specialistID;
     private $issueID;
+	
 
 	//Retrieves ticket data from the POST request, then adds a new ticket and initial update, before returning the specialist select view
     public function getTicketData(Request $request)
@@ -40,10 +42,20 @@ class TicketController extends Controller
 		  $hardwareTable = DB::table('affected_hardware');
 		  //loops through affected hardware array and adds to the table
 		  //table id issueID equipmentSerialNumber
-		  for($i = 0; $i < sizeof($affectedHardware); $i++) {
-		  		$hardwareTable->insert(['issueID' => $this->issueID, 'equipmentSerialNumber' => $affectedHardware[$i]]);
+		  if($affectedHardware!=""){
+			for($i = 0; $i < sizeof($affectedHardware); $i++) {
+					$hardwareTable->insert(['issueID' => $this->issueID, 'equipmentSerialNumber' => $affectedHardware[$i]]);
+			}
 		  }
-        
+		  $softwareTable = DB::table('affected_software');
+		  if($affectedSoftware!=""){
+			for($i = 0; $i < sizeof($affectedSoftware); $i++)
+			{
+				$softwareTable->insert(['issueID' => $this->issueID, 'softwareName' => $affectedSoftware[$i]]);
+			}
+		  
+		  }
+		  
         $updates = DB::table('updates');
         $currentTime = date('Y-m-d H:i:s');
 
@@ -68,7 +80,8 @@ class TicketController extends Controller
         		$index++;
         	}
         	
-        	$data['specialists'] = $specialistArray;
+			$data['specialists'] = $specialistArray;
+			$data['tickets'] = retrieveSideTickets();
         	return view('new-call-specialist', $data);
     }
     
@@ -81,13 +94,14 @@ class TicketController extends Controller
     		$employees = DB::table('employees');
     		$prevUpdateID = $updates->where('issueID', $issueID)->max('updateID');
         	$updateID = (string)($prevUpdateID + 1);
-        	$employeeID = $tickets->where('issueID', $issueID)->first()->employeeID;
+			$employeeID = $tickets->where('issueID', $issueID)->first()->employeeID;
         	
         	//Ticket information
     		$data['employeeID'] = $employeeID;
 			$data['updateNumber'] = $updateID;    		
     		$data['issueID'] = $issueID;
-    		$data['issueDefinition'] = $tickets->where('issueID', $issueID)->first()->issueDefinition;
+			$data['issueDefinition'] = $tickets->where('issueID', $issueID)->first()->issueDefinition;
+			$data['priority'] = $tickets->where('issueID', $issueID)->first()->priority;
     		
     		//Information about initial caller
     		$row = $employees->where('id', $employeeID)->first();
@@ -98,28 +112,40 @@ class TicketController extends Controller
     		$data['extensionNumber'] = $row->extension;
     		
     		$updateHistory = $updates->where('issueID', $issueID)->get();
-    		//For loop to populate array with update information
-    		foreach($updateHistory as $result) {
-    			$callerID = $result->callerID;
-    			$callerName = $employees->where('id', $callerID)->first()->name." ".$employees->where('id', $callerID)->first()->surname;
-    			$history[$result->updateID][0] = $result->issueID.".".$result->updateID;
-    			$history[$result->updateID][1] = $result->openTimestamp;
-    			$history[$result->updateID][2] = $callerID." - ".$callerName;
-				$history[$result->updateID][3] = $result->callReason;
-				$history[$result->updateID][4] = $result->notes;
-    		}
-    		$data['history'] = $history;
+			//For loop to populate array with update information
+			if($updateHistory->count()==0){
+				$data['history'] = "";
+			}
+			else{
+				foreach($updateHistory as $result) {
+					$callerName = $employees->where('id', $employeeID)->first()->name." ".$employees->where('id', $employeeID)->first()->surname;
+					$history[$result->updateID][0] = $result->issueID.".".$result->updateID;
+					$history[$result->updateID][1] = $result->openTimestamp;
+					$history[$result->updateID][2] = $employeeID." - ".$callerName;
+					$history[$result->updateID][3] = $result->callReason;
+					$history[$result->updateID][4] = $result->notes;
+				}
+				$data['history'] = $history;
+			}
     		
     		//Affected hardware
     		$affectedHardware = DB::table('affected_hardware')->where('issueID', $issueID)->get();
-    		$index = 0;
-    		foreach($affectedHardware as $hardware){
-    			$serialNumber = $hardware->equipmentSerialNumber;
-    			$data['hardware'][$index][0] = $serialNumber;
-    			$hardwareInfo = DB::table('registered_hardware')->where('serialNumber', $serialNumber)->first();
-    			$data['hardware'][$index][1] = $hardwareInfo->make." ".$hardwareInfo->type;
-    		}
+			$index = 0;
+			if($affectedHardware->count()==0){
+				$data['hardware'][0][0]="";
+			}
+			else{
+				foreach($affectedHardware as $hardware){
+					$serialNumber = $hardware->equipmentSerialNumber;
+					$data['hardware'][$index][0] = $serialNumber;
+					$hardwareInfo = DB::table('registered_hardware')->where('serialNumber', $serialNumber)->first();
+					$data['hardware'][$index][1] = $hardwareInfo->make." ".$hardwareInfo->type;
+				}
+			}
+			
+			$data['tickets'] = retrieveSideTickets();
     		
     		return view('incoming-recurring-call', $data);
-    }
+	}
+
 }

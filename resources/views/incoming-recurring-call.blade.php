@@ -22,29 +22,34 @@
                                   </div>
                                   <button type="button" class="m-1 btn btn-outline-info" onclick="addOtherHardware()"><i class="fas fa-plus" style="padding-right: 0.5em;"></i>Add Hardware</button>
                            </div>
-                           <div id="affected_items" style="text-align: left">
+                           <!--<div id="affected_items" style="text-align: left">
                             		<div id="softwareCombos">
                             		
                                   </div>
                                   <button type="button" class="m-1 btn btn-outline-info" onclick="addOtherSoftware()"><i class="fas fa-plus" style="padding-right: 0.5em;"></i>Add Software</button>
-                           </div>
+                           </div>-->
                     </ul>
               </div>
               
               
               <div class="col-4" style="text-align: left;">
                       <h1> History </h1>
-                    <ul style="text-align: left; overflow: auto; white-space: nowrap; max-height: 25rem; overflow-y: scroll;" id="callHistory">
+                    <ul style="text-align: left; max-height: 25rem; overflow-y: scroll; width:100%;" id="callHistory">
                     </ul>
             </div>
               <div id="extra_pane" class="col-4" style="text-align: left; padding-left: 1.5em; padding-right: 1.5em">
                     <div style="padding-bottom: 1em;">
-                    			Priority
-									<input type="range" class="" name="priority" min="1" max="3">
+ 										 <div><span class="float-left">Low Priority</span><span class="float-right">High Priority</span>
+											<input type="range" class="custom-range form-control" min="1" max="3" id="customRange2" name="priority">
+										</div>
                     </div>
                     <div>
-	                    <button type="button" class="btn-outline-info btn" style="display: inline;" onclick="originalCallerID()">Original Caller</button>
-	                    <input type="text" name="callerID" id="callerID" placeholder="Caller ID" style="float:right; display: inline;">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<button class="btn btn-outline-secondary" onclick="originalCallerID()" type="button">Same User</button>
+											</div>
+											<input type="text" class="form-control"  id="callerID" placeholder="" aria-label="" aria-describedby="basic-addon1" name="callerID" required="true">
+										</div>
 							</div>                    
                     <select style="display:inline-block; vertical-align:top; width: 100%; overflow-y: hidden;" size="3" name="updateReason" required="true">
 									<option class="list-group-item" value="Information Update">Information Update</option>                        	
@@ -79,7 +84,7 @@
 	//This function adds another comboBox to enter affected software
 	function addOtherSoftware(){
 		let newdiv = document.createElement('div');
-		newdiv.innerHTML += "<select class='m-1 form-control' style='width: 100%;' name='affectedHardware["+ softwareCounter +"]'></select>";
+		newdiv.innerHTML += "<input type='text' class='m-1 form-control' name='affectedSoftware[" + softwareCounter +"]' placeholder='Software serial number'>";
 		document.getElementById("softwareCombos").appendChild(newdiv);
 		softwareCounter++;
 	}
@@ -100,11 +105,16 @@
 		}
 		
 		decodeElement.innerHTML = "{{json_encode($hardware)}}";
-		jsonarray = decodeElement.value;
-		let hardware = JSON.parse(jsonarray);
-		for(let i = 0; i<hardware.length; i++){
-			let affected = '<li class="list-group-item border-0"><i class="fas fa-desktop" style="padding-right: 1em;"></i>'+hardware[i][0]+' '+hardware[i][1]+'</li>';		
-			document.getElementById('user_info').innerHTML += affected;
+		let jsonarray2 = decodeElement.value;
+		let hardware = JSON.parse(jsonarray2);
+		if(hardware != ""){
+			for(let i = 0; i<hardware.length; i++){
+				let affected = '<li class="list-group-item border-0"><i class="fas fa-desktop" style="padding-right: 1em;"></i>'+hardware[i][0]+' '+hardware[i][1]+'</li>';		
+				document.getElementById('user_info').innerHTML += affected;
+			}
 		}
+		
+
+		document.getElementById('customRange2').value = {{$priority}};
 	}
 @endsection

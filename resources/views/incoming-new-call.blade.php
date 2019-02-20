@@ -1,7 +1,6 @@
 @extends('layouts.empty')
 
 @section('rightcard')
-		<p>Filename: incoming-new-call.blade.php</p>
 		<form method="post" action="submitticket">
 		{{ csrf_field() }}
         <h1 style="text-align: left"><span id="name" class="badge badge-secondary">{{$firstname}} {{$surname}}</span></h1>
@@ -21,12 +20,12 @@
                                   </div>
                                   <button type="button" class="m-1 btn btn-outline-info" onclick="addOtherHardware()"><i class="fas fa-plus" style="padding-right: 0.5em;"></i>Add Hardware</button>
                            </div>
-                           <div id="affected_items" style="text-align: left">
+                           <!--<div id="affected_items" style="text-align: left">
                             		<div id="softwareCombos">
                             		
                                   </div>
                                   <button type="button" class="m-1 btn btn-outline-info" onclick="addOtherSoftware()"><i class="fas fa-plus" style="padding-right: 0.5em;"></i>Add Software</button>
-                           </div>
+                           </div>-->
                     </ul>
               </div>
               

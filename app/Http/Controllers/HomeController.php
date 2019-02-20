@@ -24,7 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('empty');
+        $data['tickets'] = retrieveSideTickets();
+        return view('empty', $data);
     }
 
     public function logout(Request $request) {
