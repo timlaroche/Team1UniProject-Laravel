@@ -46,12 +46,12 @@
                         <button class="list-group-item btn-outline-dark">Very Slow</button>
                         <button class="list-group-item btn-outline-dark">Individual Component</button>-->
                         <select style="display:inline-block; vertical-align:top; overflow:hidden;" size="6" name="issueDefinition" required="true">
-									<option class="list-group-item" value="Won't Log In">Won't Turn On</option>                        	
+									<option class="list-group-item" value="Won't Turn On">Won't Turn On</option>                        	
                         	<option class="list-group-item" value="Won't Log In">Won't Log In</option>
                         	<option class="list-group-item" value="No Network">No Network</option>
                         	<option class="list-group-item" value="Driver Issue">Driver Issue</option>
-                        	<option class="list-group-item" value="No Network">Very Slow</option>
-                        	<option class="list-group-item" value="Driver Issue">Individual Component</option>
+                        	<option class="list-group-item" value="Very Slow">Very Slow</option>
+                        	<option class="list-group-item" value="Individual Component">Individual Component</option>
                         </select>
                   </div>
             </div>
@@ -87,7 +87,7 @@
 	//This function adds another comboBox to enter affected software
 	function addOtherSoftware(){
 		let newdiv = document.createElement('div');
-		newdiv.innerHTML += "<select class='m-1 form-control' style='width: 100%;' name='affectedHardware["+ softwareCounter +"]'></select>";
+		newdiv.innerHTML += "<select class='m-1 form-control' style='width: 100%;' name='affectedSoftware["+ softwareCounter +"]'></select>";
 		document.getElementById("softwareCombos").appendChild(newdiv);
 		softwareCounter++;
 	}

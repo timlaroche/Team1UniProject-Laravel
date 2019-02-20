@@ -46,12 +46,12 @@
                         <button class="list-group-item btn-outline-dark">Very Slow</button>
                         <button class="list-group-item btn-outline-dark">Individual Component</button>-->
                         <select style="display:inline-block; vertical-align:top; overflow:hidden;" size="6" name="issueDefinition" required="true">
-									<option class="list-group-item" value="Won't Log In">Won't Turn On</option>                        	
+									<option class="list-group-item" value="Won't Turn On">Won't Turn On</option>                        	
                         	<option class="list-group-item" value="Won't Log In">Won't Log In</option>
                         	<option class="list-group-item" value="No Network">No Network</option>
                         	<option class="list-group-item" value="Driver Issue">Driver Issue</option>
-                        	<option class="list-group-item" value="No Network">Very Slow</option>
-                        	<option class="list-group-item" value="Driver Issue">Individual Component</option>
+                        	<option class="list-group-item" value="Very Slow">Very Slow</option>
+                        	<option class="list-group-item" value="Individual Component">Individual Component</option>
                         </select>
                   </div>
             </div>
@@ -64,8 +64,7 @@
               </div>
         </div>
         <div class="btn-block" id="submitButtons" style="margin-top: 2em;">
-              <button type="submit" style="color: white" class="btn btn-primary btn-lg" name="selfsubmit" onclick="selfSubmit()"><i class="fas fa-user-tie" style="padding-right: 0.5em;"></i>Assign to self</button>
-              <button type="submit" style="color: white" class="btn btn-primary btn-lg" name="specialistsubmit" onclick="specialistSubmit()"><i class="fas fa-users" style="padding-right: 0.5em;"></i>Assign to specialist</button>
+              <button type="submit" style="color: white" class="btn btn-primary btn-lg"><i class="fas fa-user-tie" style="padding-right: 0.5em;"></i>Submit</button>
         </div>
         <input type="hidden" name="employeeID" value="{{$employeeID}}">
         <input type="hidden" name="specialistID" id="specialistID" value="">

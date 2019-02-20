@@ -12,8 +12,8 @@
                                 <li class="list-group-item border-0"><i class="fas fa-briefcase" style="padding-right: 1em;"></i>{{$department}}</li>
                                 <li class="list-group-item border-0"><i class="fas fa-envelope" style="padding-right: 1em;"></i>{{$email}}</li>
                                 <li class="list-group-item border-0"><i class="fas fa-phone" style="padding-right: 1em;"></i>{{$extensionNumber}}</li>
-                                <li class="list-group-item border-0"><i class="fas fa-sticky-note" style="padding-right: 1em;"></i>Notes!</li>									                        
-                                </li>
+                                <li class="list-group-item border-0"><i class="fas fa-sticky-note" style="padding-right: 1em;"></i>{{$issueDefinition}}</li>						                        
+                                
                             </div>
                             <div class="dropdown-divider"></div>
                             <div id="affected_items" style="text-align: left">
@@ -97,6 +97,14 @@
 		for(let i = 0; i<history.length; i++){
 			let update = "<li><b>" + history[i][0] + "</b><br><b>Date </b>" + history[i][1] + "<br><b>Caller </b>" + history[i][2] + "<br><b>Call Reason </b>" + history[i][3] + "<br><b>Notes </b>" + history[i][4] + "<br></li><br>"
 			document.getElementById("callHistory").innerHTML += update;
+		}
+		
+		decodeElement.innerHTML = "{{json_encode($hardware)}}";
+		jsonarray = decodeElement.value;
+		let hardware = JSON.parse(jsonarray);
+		for(let i = 0; i<hardware.length; i++){
+			let affected = '<li class="list-group-item border-0"><i class="fas fa-desktop" style="padding-right: 1em;"></i>'+hardware[i][0]+' '+hardware[i][1]+'</li>';		
+			document.getElementById('user_info').innerHTML += affected;
 		}
 	}
 @endsection

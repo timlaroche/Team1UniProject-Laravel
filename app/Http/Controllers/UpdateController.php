@@ -33,4 +33,11 @@ class UpdateController extends Controller
         $tickets = DB::table('updates');
         $tickets->insert(['priority' => $priority]);
     }
+    
+    //Function to change the specialist of a submitted ticket
+    public function changeSpecialist(Request $request) {
+    	$tickets = DB::table('tickets');
+    	$tickets->where('issueID', $request->input('issueID'))->update(['specialistID' => $request->input('specialistID')]);
+    	return view('done');
+    }
 }

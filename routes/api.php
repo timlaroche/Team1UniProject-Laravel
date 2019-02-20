@@ -42,6 +42,4 @@ Route::post('/recurringticket', 'TicketController@retrieveTicket');
 
 Route::post('/submitticket', 'TicketController@getTicketData');
 Route::post('/submitupdate', 'UpdateController@createUpdate');
-Route::post('/submitSpecialist', function(){
-	echo "Under construction. All I need to do is insert the chosen specialist into the tickets table with the right issueID";
-});
+Route::post('/submitSpecialist', 'UpdateController@changeSpecialist');

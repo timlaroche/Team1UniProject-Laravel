@@ -24,6 +24,8 @@ class TicketController extends Controller
         $this->notes = $request->input('notes');
         $this->employeeID = $request->input('employeeID');
         $this->specialistID = $request->input('specialistID');
+        $affectedHardware = $request->input('affectedHardware');
+        $affectedSoftware = $request->input('affectedSoftware');
         
         $tickets = DB::table('tickets');
         $currentTime = date('Y-m-d H:i:s');
@@ -34,6 +36,13 @@ class TicketController extends Controller
              'openTimestamp' => $currentTime, 'closeTimestamp' => null, 'specialistID' => $this->specialistID]
         );
 		  $this->issueID = $tickets->where('openTimestamp', $currentTime)->first()->issueID;
+		  
+		  $hardwareTable = DB::table('affected_hardware');
+		  //loops through affected hardware array and adds to the table
+		  //table id issueID equipmentSerialNumber
+		  for($i = 0; $i < sizeof($affectedHardware); $i++) {
+		  		$hardwareTable->insert(['issueID' => $this->issueID, 'equipmentSerialNumber' => $affectedHardware[$i]]);
+		  }
         
         $updates = DB::table('updates');
         $currentTime = date('Y-m-d H:i:s');
@@ -43,8 +52,24 @@ class TicketController extends Controller
         'openTimestamp' => $currentTime]);
         
         	$data['issueID'] = $this->issueID;
-        	$data['specialists'] DB::table('employees')->select('id', 'name', 'surname')->where('isSpecialist', true)->get()->toArray();
-    		return view('new-call-specialist', $data);
+        	$specialists = DB::table('employees')->where('isSpecialist', true)->get()->toArray();
+        	//return $specialists[0]->id;
+        	
+        	//loop to add each specialist to a new array with a count of how many tickets the specialist has
+			$index = 0;    
+			$specialistArray;    	
+        	foreach($specialists as $specialist){
+        		//Count how many tickets the specialist has
+        		$count = DB::table('tickets')->where('specialistID', $specialist->id)->where('closeTimestamp', null)->get()->count();
+        		$specialistArray[$index]['name'] = $specialist->name;
+        		$specialistArray[$index]['surname'] = $specialist->surname;
+        		$specialistArray[$index]['id'] = $specialist->id;
+        		$specialistArray[$index]['count'] = $count;
+        		$index++;
+        	}
+        	
+        	$data['specialists'] = $specialistArray;
+        	return view('new-call-specialist', $data);
     }
     
     
@@ -62,6 +87,7 @@ class TicketController extends Controller
     		$data['employeeID'] = $employeeID;
 			$data['updateNumber'] = $updateID;    		
     		$data['issueID'] = $issueID;
+    		$data['issueDefinition'] = $tickets->where('issueID', $issueID)->first()->issueDefinition;
     		
     		//Information about initial caller
     		$row = $employees->where('id', $employeeID)->first();
@@ -83,6 +109,17 @@ class TicketController extends Controller
 				$history[$result->updateID][4] = $result->notes;
     		}
     		$data['history'] = $history;
+    		
+    		//Affected hardware
+    		$affectedHardware = DB::table('affected_hardware')->where('issueID', $issueID)->get();
+    		$index = 0;
+    		foreach($affectedHardware as $hardware){
+    			$serialNumber = $hardware->equipmentSerialNumber;
+    			$data['hardware'][$index][0] = $serialNumber;
+    			$hardwareInfo = DB::table('registered_hardware')->where('serialNumber', $serialNumber)->first();
+    			$data['hardware'][$index][1] = $hardwareInfo->make." ".$hardwareInfo->type;
+    			return $data['hardware'][$index];
+    		}
     		
     		return view('incoming-recurring-call', $data);
     }

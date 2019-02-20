@@ -40,9 +40,6 @@
                                      <li class="nav-item">
                                            <button id="incomingcallsbutton" class="nav-link btn" onclick="incomingcalls()"><i class="fas fa-plus" style="padding-right: 0.5em;"></i>Incoming Call</button>
                                      </li>
-                                     <li class="nav-item">
-                                           <button id="allcallsbutton" class="nav-link btn"><i class="fas fa-bars" style="padding-right: 0.5em;"></i>All Calls</button>
-                                     </li>
                               </ul>
                         </div>
                         <div id="my_calls" style="overflow: auto; height: 35em;">

@@ -31,6 +31,12 @@ class UpdateController extends Controller
         'openTimestamp' => $currentTime]);
         
         $tickets = DB::table('updates');
-        $tickets->insert(['priority' => $priority])
+        $tickets->insert(['priority' => $priority]);
+    }
+    
+    //Function to change the specialist of a submitted ticket
+    public function changeSpecialist(Request $request) {
+    	$tickets = DB::table('tickets');
+    	$tickets->where('issueID', $request->input('issueID'))->update(['specialistID' => $request->input('specialistID')]);
     }
 }
